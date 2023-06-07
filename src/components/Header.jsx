@@ -4,8 +4,17 @@ import MenuIcon from "@mui/icons-material/Menu";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import {  useDispatch } from 'react-redux'
 import { toggleSideBar } from "../redux-store/toggleSideBarSlice";
+import { useEffect } from "react";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
+
+
+const navigate=useNavigate()
+
+
+
 
   const dispatch = useDispatch()
     return (
@@ -51,17 +60,45 @@ export default function Header() {
                         fontSize='large' />
                     </Box>
 
+                   <Box>
+                   <IconButton 
+                   
+                   onClick={
+                    ()=>{
+                        navigate('/cart')
+                    }
+                   }
+  
+
+                   sx={{
+                    mr:2
+                   }}
+                   size="large"
+                   >
+                      <ShoppingCartIcon
+                      
+                        
+                        sx={{
+                            color:'white',
+                            fontSize:35
+                            
+                        }}
+                      />
+                    </IconButton>
+
                     <IconButton
                         onClick={()=>{dispatch(toggleSideBar())}}
                     >
                         <MenuIcon
+                            
                             variant='contained'
                             sx={{
-                                fontSize: 45,
+                                fontSize:45,
                                 color: "white",
                             }}
                         />
                     </IconButton>
+                   </Box>
                 </Box>
             </AppBar>
         </>

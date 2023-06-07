@@ -1,13 +1,13 @@
 body{
     position: relative;
-    scroll-behavior: smooth;
+    
     
     
     
     
 }
 
-html{
+html,body,#root,.App{
   scroll-behavior: smooth;
 }
 

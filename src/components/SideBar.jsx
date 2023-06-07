@@ -1,31 +1,28 @@
-import { Box,FormControl, ListItem, ListItemButton,Divider, Typography, List, ListItemText,ListItemIcon,Drawer} from '@mui/material'
+import { Box,FormControl, ListItem, ListItemButton,Divider, Typography, List, ListItemText,ListItemIcon,Drawer, Icon} from '@mui/material'
 import React from 'react'
-import ComputerIcon from '@mui/icons-material/Computer';
-import DiamondIcon from '@mui/icons-material/Diamond';
-import Man2Icon from '@mui/icons-material/Man2';
-import WomanIcon from '@mui/icons-material/Woman';
-import BorderAllIcon from '@mui/icons-material/BorderAll';
 import { useSelector } from 'react-redux';
 import { toggleSideBar } from '../redux-store/toggleSideBarSlice';
 import { useDispatch } from 'react-redux';
-import { setProductCategory } from '../redux-store/productCategorySlice';
+import { useNavigate } from 'react-router-dom';
+import HomeIcon from '@mui/icons-material/Home';
+import CategoryIcon from '@mui/icons-material/Category';
 
 
 
 export default function SideBar() {
- const categories=[
-  {RUTitle:'Все',ENGTitle:"common",icon:<BorderAllIcon fontSize='large'/>},
-  {RUTitle:'Электроника',ENGTitle:'electronics',icon:<ComputerIcon fontSize='large'/>},
-  {RUTitle:'Ювелирные изделия',ENGTitle:'jewelery', icon:<DiamondIcon fontSize='large'/>},
-  {RUTitle:'Мужская одежда',ENGTitle:"men's clothing", icon:<Man2Icon fontSize='large'/>},
-  {RUTitle:'Женская одежда',ENGTitle:"women's clothing",icon:<WomanIcon fontSize='large'/>},
- 
+ const dispatch=useDispatch()
+ const navigate=useNavigate()
+
+
+ const navItems=[
+  
+ {title:'На главную', path:'/front-page', icon:<HomeIcon/>},
+ {title:'Каталог товаров', path:'/', icon:<CategoryIcon/>}
 
  ]
 
 
  const sideBarIsActive = useSelector((state) => state.sideBarIsActive.value)
- const dispatch=useDispatch()
  
 
   return (
@@ -54,27 +51,27 @@ export default function SideBar() {
       fontSize:18
     }}
    >
-    Категории товаров
+    Навигация
    </Typography>
    </ListItem>
-    {categories.map(category=>{
+    {navItems.map(item=>{
       return(
         <ListItem
-        key={category.RUTitle}
+        key={item.title}
         
         >
         <ListItemButton
         onClick={
           ()=>{
-            dispatch(setProductCategory({'ENGTitle':category.ENGTitle,'RUTitle':category.RUTitle}))
+            navigate(item.path)
           }
         }
        
         >
-          <ListItemIcon>
-            {category.icon}
+          <ListItemIcon >
+           {item.icon}
           </ListItemIcon>
-          <ListItemText primary={category.RUTitle}/>
+          <ListItemText primary={item.title}/>
         </ListItemButton>
         </ListItem>
       )

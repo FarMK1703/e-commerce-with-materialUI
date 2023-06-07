@@ -11,7 +11,7 @@ export const toggleSideBarSlice = createSlice({
 
     toggleSideBar:(state)=>{
         state.value=!state.value
-        console.log(state.value)
+        
     }
   }})
 

@@ -1,10 +1,10 @@
 import React from 'react'
-import { Box, Button,Icon, Typography,Chip, CircularProgress } from '@mui/material'
+import { Box, Button,Icon, Typography,Chip, CircularProgress, IconButton } from '@mui/material'
 import { useParams } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-import axios from 'axios'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-
+import WestIcon from '@mui/icons-material/West';
+import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 
 
@@ -12,44 +12,12 @@ export default function ProductFullInfo() {
 
   const param=useParams()
   const id=param.id
-  const [product,setProduct]=useState({})
-  const [isLoading,setIsLoading]=useState(false)
-  
 
-  useEffect(()=>{
-    fetchProduct()
-  },[])
+  const navigate=useNavigate()
 
+  const products=useSelector(store=>store.fetchProducts.products)
+  const product=products[id]
 
-  const fetchProduct=async ()=>{
-    try{
-      setIsLoading(true)
-      const response= await axios.get(`https://fakestoreapi.com/products/${id}`)
-      setProduct(response.data)
-      setIsLoading(false)
-    }
-
-    catch(error){
-      console.error(error)
-    }
-  }
- 
-  
-
- if(isLoading){
-  return (
-    <Box
-        sx={{
-            minHeight: "calc(100vh - 60px)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-        }}
-    >
-        <CircularProgress size={60} />
-    </Box>
-);
- }
   
 
 
@@ -61,9 +29,33 @@ export default function ProductFullInfo() {
       width:'100%',
       display:'flex',
       alignItems:'center',
-      overflowY:'auto'
+      overflowY:'auto',
+      paddingBottom:'100px',
+      position:'relative'
     }}
     >
+
+
+    <IconButton
+
+    onClick={()=>{
+      navigate(-1)
+    }}
+     sx={{
+      position:'absolute',
+      top:{
+        sm:'30px',
+        xs:'15px'
+      },
+      ml:{
+        xs:1,
+        sm:4
+      }
+     }}
+    >
+      <WestIcon color='primary' fontSize='large'/>
+    </IconButton>
+
       <Box
       sx={{
         display:'flex',
@@ -75,7 +67,7 @@ export default function ProductFullInfo() {
         justifyContent:'center',
         pt:{
           xs:2,
-          sm:8,
+          
         }
       }}
       >

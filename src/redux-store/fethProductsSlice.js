@@ -1,16 +1,30 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
- products:[]
+ products:[],
+ filteredProducts:[]
 }
 
 export const fetchProductSlice = createSlice({
-  name: 'fethcedProducts',
+  name: 'fetсhedProducts',
   initialState,
   reducers:{
     setProducts:(state,action)=>{
       state.products=action.payload
+      state.filteredProducts=action.payload
+      
+    },
+
+
+    setFilteredproducts:(state,action)=>{
+      if (action.payload !== ""&& action.payload!=='common'){
+      state.filteredProducts=state.products.filter(product=>product.category===action.payload)
+      }
+      else{
+        state.filteredProducts=state.products
+      }
     }
+
    
 
     
@@ -18,5 +32,5 @@ export const fetchProductSlice = createSlice({
 
 
 
-  export const {setProducts}=fetchProductSlice.actions
+  export const {setProducts,setFilteredproducts}=fetchProductSlice.actions
   export default fetchProductSlice.reducer
